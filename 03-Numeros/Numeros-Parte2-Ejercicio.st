@@ -495,15 +495,9 @@ isZero
 	^value = 0! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 20:09'!
-initalizeWith: aValue 
+!Entero methodsFor: 'initialization' stamp: 'SIA 5/31/2021 18:32:49'!
+initializeWith: aValue 
 	
-	value := aValue! !
-
-!Entero methodsFor: 'initialization' stamp: 'SIA 5/23/2021 00:14:58'!
-initializeWith: aValue
-	
-	type := #Entero.
 	value := aValue! !
 
 
@@ -875,7 +869,6 @@ numerator
 !classDefinition: 'Fraccion class' category: 'Numeros-Parte2-Ejercicio'!
 Fraccion class
 	instanceVariableNames: ''!
-
 
 !Fraccion class methodsFor: 'intance creation' stamp: 'NR 9/23/2018 23:45:19'!
 with: aDividend over: aDivisor
