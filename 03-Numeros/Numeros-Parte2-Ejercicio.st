@@ -40,22 +40,6 @@ test07EnteroDividesEnteroCorrectly
 
 	self assert: two / two equals: one! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:15:37'!
-test07FraccionAddsWithFraccionCorrectly
-"
-    La suma de fracciones es:
-	 
-	a/b + c/d = (a.d + c.b) / (b.d)
-	 
-	SI ESTAN PENSANDO EN LA REDUCCION DE FRACCIONES NO SE PREOCUPEN!!
-	TODAVIA NO SE ESTA TESTEANDO ESE CASO
-"
-	| sevenTenths |
-
-	sevenTenths := Numero with: (Numero with: 7) over: (Numero with: 10).
-
-	self assert: oneFifth + oneHalf equals: sevenTenths! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 20:38'!
 test08FraccionAddsWithFraccionCorrectly
 "
@@ -72,21 +56,6 @@ test08FraccionAddsWithFraccionCorrectly
 
 	self assert: oneFifth + oneHalf equals: sevenTenths! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:11:26'!
-test08FraccionMultipliesWithFraccionCorrectly
-"
-    La multiplicacion de fracciones es:
-	 
-	(a/b) * (c/d) = (a.c) / (b.d)
-"
-
-	self assert: oneFifth * twoFifth equals: twoTwentyfifth! !
-
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:16:19'!
-test09AparentFraccionesAreEqual
-
-	self assert: oneHalf equals: (Numero with: two over: four)! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 20:52'!
 test09FraccionMultipliesWithFraccionCorrectly
 "
@@ -96,11 +65,6 @@ test09FraccionMultipliesWithFraccionCorrectly
 "
 
 	self assert: oneFifth * twoFifth equals: twoTwentyfifth! !
-
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:12:46'!
-test10AddingFraccionesCanReturnAnEntero
-
-	self assert: oneHalf + oneHalf equals: one! !
 
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 20:56'!
 test10FraccionDividesFraccionCorrectly
@@ -120,25 +84,10 @@ test11EnteroAddsFraccionCorrectly
 
 	self assert: one + oneFifth equals: (Entero with: 6) / (Entero with: 5)! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:26:23'!
-test11MultiplyingFraccionesCanReturnAnEntero
-
-	self assert: (twoFifth) * (fiveHalfs) equals: one! !
-
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:13:21'!
-test12AFraccionCanNotBeZero
-
-	self deny: oneHalf isZero! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 21:07'!
 test12FraccionAddsEnteroCorrectly
 
 	self assert: oneFifth + one equals: (Entero with: 6) / (Entero with: 5)! !
-
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:13:30'!
-test13AFraccionCanNotBeOne
-
-	self deny: oneHalf isOne! !
 
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 21:50'!
 test13EnteroMultipliesFraccionCorrectly
@@ -150,41 +99,21 @@ test14FraccionMultipliesEnteroCorrectly
 
 	self assert: oneFifth * two equals: twoFifth ! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:14:16'!
-test14NegationOfEnteroIsCorrect
-
-	self assert: two negated equals: negativeTwo.! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'SIA 5/27/2021 20:17:05'!
 test15EnteroDividesFraccionCorrectly
 
 	self assert: one / twoFifth equals: fiveHalfs
 ! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:44:24'!
-test15NegationOfFraccionIsCorrect
-
-	self assert: oneHalf negated equals: (Numero with: negativeOne over: two)! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 21:59'!
 test16FraccionDividesEnteroCorrectly
 
 	self assert: twoFifth / five equals: twoTwentyfifth ! !
 
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:29:45'!
-test16SignIsCorrectlyAssignedToFractionWithTwoNegatives
-
-	self assert: oneHalf equals: (Numero with: negativeOne over: negativeTwo)! !
-
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 22:38'!
 test17AFraccionCanBeEqualToAnEntero
 
 	self assert: two equals: four / two! !
-
-!NumeroTest methodsFor: 'tests' stamp: 'NR 9/8/2019 21:30:07'!
-test17SignIsCorrectlyAssignedToFractionWithNegativeDivisor
-
-	self assert: oneHalf negated equals: (Numero with: one over: negativeTwo)! !
 
 !NumeroTest methodsFor: 'tests' stamp: 'HernanWilkinson 5/7/2016 22:39'!
 test18AparentFraccionesAreEqual
@@ -501,6 +430,16 @@ beSubtractedFromFraccion: aFraccionMinuend
 
 	self subclassResponsibility.! !
 
+!Numero methodsFor: 'private' stamp: 'MS 5/31/2021 18:09:13'!
+divideAFraccion: 	aFraccionDividend
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'MS 5/31/2021 18:09:28'!
+divideAnEntero: 	anEnteroDividend
+
+	self subclassResponsibility.! !
+
 !Numero methodsFor: 'private' stamp: 'HernanWilkinson 5/7/2016 22:48'!
 invalidNumberType
 
@@ -585,14 +524,10 @@ initializeWith: aValue
 
 	^ aSubtrahend beSubtractedFromEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'MS 5/30/2021 21:08:14'!
-/ aDivisor 
+!Entero methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:07:02'!
+/ aDivisor
 
-	"(aDivisor isKindOf: Fraccion) ifTrue: [^self * (Fraccion with: aDivisor denominator over: aDivisor numerator)].
-	
-	^Fraccion with: self over: aDivisor"
-	
-	^aDivisor beDividedByEntero: self.! !
+	^aDivisor divideAnEntero: self.! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'SIA 5/29/2021 18:45:21'!
 beAddedToEntero: anEnteroAugend 
@@ -635,6 +570,16 @@ beSubtractedFromFraccion: aFraccionMinuend
 
 
 	! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:10:07'!
+divideAFraccion: aFraccionDividend
+
+	^(Fraccion with: aFraccionDividend numerator over: self * aFraccionDividend denominator)! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:10:11'!
+divideAnEntero: anEnteroDividend
+	
+	^Fraccion with: anEnteroDividend over: self! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'MS 5/30/2021 20:27:24'!
 fibonacci
@@ -691,17 +636,6 @@ integerValue
 	"Usamos integerValue en vez de value para que no haya problemas con el mensaje value implementado en Object - Hernan"
 	
 	^value! !
-
-
-!Entero methodsFor: 'as yet unclassified' stamp: 'MS 5/30/2021 20:59:23'!
-beDividedByEntero: aDivisor
-	
-	^Fraccion with: self over: aDivisor! !
-
-!Entero methodsFor: 'as yet unclassified' stamp: 'MS 5/30/2021 20:59:59'!
-byDividedByFraccion: aDivisor
-
-		^self * (Fraccion with: aDivisor denominator over: aDivisor numerator)! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -830,13 +764,9 @@ initializeWith: aNumerator over: aDenominator
 	^aSubtrahend beSubtractedFromFraccion: self.
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/30/2021 21:08:28'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:08:02'!
 / aDivisor 
-
-	"(aDivisor isKindOf: Entero) ifTrue: [^Fraccion with: self numerator over: self denominator * aDivisor].	
-	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)
-	"
-	^aDivisor beDividedByFraccion: self.! !
+	^aDivisor divideAFraccion: self.! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'SIA 5/29/2021 18:45:29'!
 beAddedToEntero: anEnteroAugend 
@@ -854,17 +784,6 @@ beAddedToFraccion: aFraccionAugend
 	newDenominator := self denominator * aFraccionAugend denominator.
 	
 	^newNumerator / newDenominator ! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/30/2021 21:01:53'!
-beDividedByEntero: aDivisor 
-
-	^Fraccion with: self numerator over: self denominator * aDivisor.
-! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/30/2021 21:10:42'!
-beDividedByFraccion: 	aDivisor
-
-	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator).! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'SIA 5/29/2021 19:48:08'!
 beMultipliedToEntero: anEnteroMultiplicand
@@ -901,6 +820,18 @@ beSubtractedFromFraccion: aFraccionMinuend
 
 	
 		
+	! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:08:14'!
+divideAFraccion: 	aFraccionDividend
+
+	^(self denominator * aFraccionDividend numerator) / (self numerator * aFraccionDividend denominator).! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'MS 5/31/2021 18:06:47'!
+divideAnEntero: anEnteroDividend 
+
+	^anEnteroDividend * (Fraccion with: self denominator over: self numerator). 
+	
 	! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'SIA 5/22/2021 22:18:09'!
