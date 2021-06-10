@@ -147,41 +147,47 @@ TestCase subclass: #SentenceFinderByPrefixTest
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: 'container'
+	instanceVariableNames: 'topNode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 18:01:36'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:01:00'!
 initialize
 
-	container := OrderedCollection new.! !
+	topNode := NullNode new.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 17:57:58'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:06:35'!
 isEmpty
 
-	^container size = 0.! !
+	^topNode isEmpty.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 18:31:00'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:50:33'!
 pop
-	self isEmpty ifTrue: [^self error: self class stackEmptyErrorDescription].
-	^container removeLast. 
+
+	| poppedNode |
+	poppedNode := topNode.
+	topNode := poppedNode previousNode.
+	^poppedNode top. 
 	! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 17:58:06'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:16:52'!
 push: anObject
+	
+	| newNode |	
+	newNode := StackableNode new initializeWith: anObject onTopOf: topNode.
+	topNode := newNode.
+	^anObject.! !
 
-	^container addLast: anObject.! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 18:21:52'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:03:26'!
 size
 
-	^container size.! !
+	^topNode size.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/6/2021 18:31:42'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:08:56'!
 top
-	self isEmpty ifTrue: [^self error: self class stackEmptyErrorDescription].
-	^container at: container size. 
+	
+	^topNode top.
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -195,7 +201,6 @@ stackEmptyErrorDescription
 	
 	^ 'Stack is empty'! !
 
-
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
@@ -203,3 +208,79 @@ Object subclass: #SentenceFinderByPrefix
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+
+!classDefinition: #StackNode category: 'Stack-Exercise'!
+Object subclass: #StackNode
+	instanceVariableNames: 'previousNode'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!StackNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:52:07'!
+previousNode
+	
+	^previousNode.! !
+
+
+!classDefinition: #NullNode category: 'Stack-Exercise'!
+StackNode subclass: #NullNode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:50:05'!
+initialize 
+
+	previousNode := self.! !
+
+!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:12:11'!
+isEmpty 
+
+	^true.! !
+
+!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:20:05'!
+pop
+
+	^self top.! !
+
+!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:58:16'!
+size
+	
+	^0.! !
+
+!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:32:32'!
+top
+
+	^self error: OOStack stackEmptyErrorDescription.! !
+
+
+!classDefinition: #StackableNode category: 'Stack-Exercise'!
+StackNode subclass: #StackableNode
+	instanceVariableNames: 'element'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:57:08'!
+initializeWith: anElement onTopOf: aNode
+
+	element := anElement. 
+	previousNode := aNode.
+	! !
+
+!StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:33:42'!
+isEmpty 
+
+	^false.! !
+
+!StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:57:55'!
+size
+
+	^ previousNode size + 1! !
+
+!StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:48:14'!
+top
+
+	^element.! !
