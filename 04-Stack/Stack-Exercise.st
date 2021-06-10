@@ -209,6 +209,26 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MS 6/9/2021 22:43:42'!
+find: prefix in: stack
+	| auxStack list res|
+	auxStack := OOStack new.
+	list := OrderedCollection new.
+	stack isEmpty whileFalse: [
+		list add: stack pop.
+	].
+	
+	res := list collect: [self beginsWith: prefix].
+	
+	list do: [auxStack push: self.].
+	
+	stack isEmpty whileFalse: [
+		stack push: auxStack pop.
+	].
+	
+	^res.
+	! !
+
 
 !classDefinition: #StackNode category: 'Stack-Exercise'!
 Object subclass: #StackNode
