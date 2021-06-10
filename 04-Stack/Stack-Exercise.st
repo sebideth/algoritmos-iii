@@ -63,7 +63,7 @@ test05StackBehavesLIFO
 	self assert: stack isEmpty 
 	! !
 
-!OOStackTest methodsFor: 'test' stamp: 'NR 5/13/2020 13:30:20'!
+!OOStackTest methodsFor: 'test' stamp: 'MS 6/10/2021 01:17:27'!
 test06TopReturnsLastPushedObject
 
 	| stack pushedObject |
@@ -76,7 +76,7 @@ test06TopReturnsLastPushedObject
 	self assert: stack top = pushedObject.
 	! !
 
-!OOStackTest methodsFor: 'test' stamp: 'NR 5/13/2020 13:30:24'!
+!OOStackTest methodsFor: 'test' stamp: 'MS 6/10/2021 01:17:27'!
 test07TopDoesNotRemoveObjectFromStack
 
 	| stack pushedObject |
@@ -122,7 +122,7 @@ test09CanNotPopWhenThereAreNoObjectsInTheStackAndTheStackHadObjects
 		
 ! !
 
-!OOStackTest methodsFor: 'test' stamp: 'HAW 4/14/2017 22:48:44'!
+!OOStackTest methodsFor: 'test' stamp: 'MS 6/10/2021 01:17:27'!
 test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 	| stack  |
@@ -139,10 +139,124 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: 'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'str1 str2 str3 str4 str5 str6'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 00:34:15'!
+setUp
+	
+	str1 := 'winter is coming'.
+	str2 := 'winning is everything'.
+	str3 := 'The winds of Winter'.
+	str4 := 'Winter is here'.
+	str5 := 'Ola'.
+	str6 := 'Test'.
+	
+	
+	
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:30:32'!
+test01FindReturnsCollectionWithTheSingleRightSentence
+	|stack finder expected|
+	stack := OOStack new.
+	stack push: str4.
+	expected := OrderedCollection new.
+	expected add: str4.
+	finder := SentenceFinderByPrefix new initializeWith: 'Wint' On: stack.
+	self assert: finder find equals: expected.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:27:28'!
+test02FindDoesNotFindTheSentence
+	|stack finder expected|
+	stack := OOStack new.
+	stack push: str1.
+	expected := OrderedCollection new.
+	finder := SentenceFinderByPrefix new initializeWith: 'hol' On: stack.
+	self assert: finder find equals: expected.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:27:39'!
+test03FindDoesNotChangeTheStack
+	|stack finder|
+	stack := OOStack new.
+	stack push: str1.
+	stack push: str2.
+	stack push: str3.
+	finder := SentenceFinderByPrefix new initializeWith: 'win' On: stack.
+	finder find.
+	self assert: stack pop equals: str3.
+	self assert: stack pop equals: str2.
+	self assert: stack pop equals: str1.
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:28:33'!
+test04InitializeWithEmptyPrefixShouldRaiseError
+	|stack |
+	stack := OOStack new.
+	self should: [SentenceFinderByPrefix new initializeWith: '' On: stack.]
+	raise: Error withExceptionDo: [:anError | self assert: anError messageText equals: SentenceFinderByPrefix prefixEmptyErrorDescription ]
+
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:28:45'!
+test05InitializeWithPrefixWithASpaceShouldRaiseError
+	|stack |
+	stack := OOStack new.
+	self should: [SentenceFinderByPrefix new initializeWith: 'ho s' On: stack.]
+	raise: Error withExceptionDo: [:anError | self assert: anError messageText equals: SentenceFinderByPrefix prefixHasSpaceErrorDescription ]
+
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:28:56'!
+test06FindIsCaseSensitive
+	|stack finder expected|
+	stack := OOStack new.
+	stack push: str1.
+	stack push: str2.
+	stack push: str3.
+	stack push: str4.
+	finder := SentenceFinderByPrefix new initializeWith: 'winter' On: stack.
+	expected := OrderedCollection new.
+	expected add: str1.
+	self assert: finder find equals: expected.
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:29:37'!
+test07FindReturnsCollectionWithMultipleSentences
+	|stack finder expected|
+	stack := OOStack new.
+	stack push: str1.
+	stack push: str2.
+	stack push: str3.
+	stack push: str4.
+	finder := SentenceFinderByPrefix new initializeWith: 'win' On: stack.
+	expected := OrderedCollection new.
+	expected add: str2.
+	expected add: str1.
+	self assert: finder find equals: expected.
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:31:53'!
+test08FindWhenStackIsEmptyReturnsEmptyCollection
+	|stack finder expected|
+	stack := OOStack new.
+	finder := SentenceFinderByPrefix new initializeWith: 'win' On: stack.
+	expected := OrderedCollection new.
+	self assert: finder find equals: expected.
+	! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:08:51'!
+test09FindWithStackWithEmptyStringsAsElements
+	|stack finder expected|
+	stack := OOStack new.
+	stack push: ''.
+	stack push: ''.
+	finder := SentenceFinderByPrefix new initializeWith: 'sas' On: stack.
+	expected := OrderedCollection new.
+	self assert: finder find equals: expected.
+	! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -162,13 +276,13 @@ isEmpty
 
 	^topNode isEmpty.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:50:33'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:22:02'!
 pop
 
 	| poppedNode |
 	poppedNode := topNode.
 	topNode := poppedNode previousNode.
-	^poppedNode top. 
+	^poppedNode containedElement. 
 	! !
 
 !OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:16:52'!
@@ -184,10 +298,10 @@ size
 
 	^topNode size.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:08:56'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:22:23'!
 top
 	
-	^topNode top.
+	^topNode containedElement.
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -204,30 +318,51 @@ stackEmptyErrorDescription
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'prefix stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MS 6/9/2021 22:43:42'!
-find: prefix in: stack
-	| auxStack list res|
-	auxStack := OOStack new.
-	list := OrderedCollection new.
-	stack isEmpty whileFalse: [
-		list add: stack pop.
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:13:45'!
+find
+	|collectionFromStackElements collectionWithFoundSentences|
+	collectionFromStackElements := OrderedCollection new.
+	[stack isEmpty] whileFalse: [
+		collectionFromStackElements addLast: stack pop.
 	].
 	
-	res := list collect: [self beginsWith: prefix].
-	
-	list do: [auxStack push: self.].
-	
-	stack isEmpty whileFalse: [
-		stack push: auxStack pop.
+	collectionWithFoundSentences := collectionFromStackElements select: [:element | element beginsWith: prefix.].
+
+	[collectionFromStackElements isEmpty] whileFalse: [
+		stack push: collectionFromStackElements removeLast.
 	].
 	
-	^res.
+	^collectionWithFoundSentences.
 	! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 00:56:12'!
+initializeWith: aPrefix On: aStack
+	(aPrefix = '') ifTrue: [self error: self class prefixEmptyErrorDescription].
+	((aPrefix findString: ' ') > 0) ifTrue: [self error: self class prefixHasSpaceErrorDescription].
+	prefix := aPrefix.
+	stack := aStack.
+	
+	
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 00:40:17'!
+prefixEmptyErrorDescription
+	^'prefix is empty'! !
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 00:44:59'!
+prefixHasSpaceErrorDescription
+	^'prefix has a space'! !
 
 
 !classDefinition: #StackNode category: 'Stack-Exercise'!
@@ -250,6 +385,11 @@ StackNode subclass: #NullNode
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!NullNode methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:17:56'!
+containedElement
+
+	^self error: OOStack stackEmptyErrorDescription.! !
+
 !NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:50:05'!
 initialize 
 
@@ -260,20 +400,10 @@ isEmpty
 
 	^true.! !
 
-!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:20:05'!
-pop
-
-	^self top.! !
-
 !NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:58:16'!
 size
 	
 	^0.! !
-
-!NullNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 21:32:32'!
-top
-
-	^self error: OOStack stackEmptyErrorDescription.! !
 
 
 !classDefinition: #StackableNode category: 'Stack-Exercise'!
@@ -282,6 +412,11 @@ StackNode subclass: #StackableNode
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!StackableNode methodsFor: 'as yet unclassified' stamp: 'MS 6/10/2021 01:21:01'!
+containedElement
+
+	^element.! !
 
 !StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:57:08'!
 initializeWith: anElement onTopOf: aNode
@@ -299,8 +434,3 @@ isEmpty
 size
 
 	^ previousNode size + 1! !
-
-!StackableNode methodsFor: 'as yet unclassified' stamp: 'SIA 6/9/2021 20:48:14'!
-top
-
-	^element.! !
