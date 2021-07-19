@@ -1,535 +1,718 @@
-!classDefinition: #MarsRoverTests category: 'TDD-MarsRover'!
-TestCase subclass: #MarsRoverTests
+!classDefinition: #TestMarsRover category: 'MarsRover-Solucion'!
+TestCase subclass: #TestMarsRover
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:38:12'!
-eliminadoPorRepeticiontest04
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:42:57'!
+test01MarsRoverDoestNotMoveWhenNoCommandsAreSent
+
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: '' endsAt: 0@0 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:43:05'!
+test02RoverFacingNorthCanMoveForward
+
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: 'f' endsAt: 0@1 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:43:13'!
+test03RoverFacingNorthCanMoveBackward
+
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: 'b' endsAt: 0@-1 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:43:24'!
+test04RoverFacingNorthHeadsEastAfterTurningRight
+
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: 'r' endsAt: 0@0 heading: #East! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:43:55'!
+test05RoverFacingNorthHeadsWestAfterTurningLeft
 	
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: 'l' endsAt: 0@0 heading: #West! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:44:26'!
+test06RoverFacingEastHeadsSouthWhenTurningRight
+	
+	self assertRoverStartingAt: 0@0 heading: #East afterProcessing: 'r' endsAt: 0@0 heading: #South! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:44:43'!
+test07RoverFacingSouthHeadsWestWhenTurningRight
+	
+	self assertRoverStartingAt: 0@0 heading: #South afterProcessing: 'r' endsAt: 0@0 heading: #West! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:45:00'!
+test08RoverFacingWestHeadsNorthWhenTurningRight
+	
+	self assertRoverStartingAt: 0@0 heading: #West afterProcessing: 'r' endsAt: 0@0 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:45:20'!
+test09RoverFacingEastHeadsNorthWhenTurningLeft
+	
+	self assertRoverStartingAt: 0@0 heading: #East afterProcessing: 'l' endsAt: 0@0 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:45:52'!
+test10RoverFacingSouthHeadsEastWhenTurningLeft
+
+	self assertRoverStartingAt: 0@0 heading: #South afterProcessing: 'l' endsAt: 0@0 heading: #East! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:46:17'!
+test11RoverFacingWestHeadsSouthWhenTurningLeft
+
+	self assertRoverStartingAt: 0@0 heading: #West afterProcessing: 'l' endsAt: 0@0 heading: #South! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:47:36'!
+test12RoverFacingEastCanMoveForward
+	
+	self assertRoverStartingAt: 0@0 heading: #East afterProcessing: 'f' endsAt: 1@0 heading: #East! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:47:55'!
+test13RoverFacingEastCanMoveBackwards
+
+	self assertRoverStartingAt: 0@0 heading: #East afterProcessing: 'b' endsAt: -1@0 heading: #East! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:48:20'!
+test14RoverFacingSouthCanMoveForward
+	
+	self assertRoverStartingAt: 0@0 heading: #South afterProcessing: 'f' endsAt: 0@-1 heading: #South! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:48:38'!
+test15RoverFacingSouthCanMoveBackward
+	
+	self assertRoverStartingAt: 0@0 heading: #South afterProcessing: 'b' endsAt: 0@1 heading: #South! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:49:10'!
+test16RoverFacingWestCanMoveForward
+	
+	self assertRoverStartingAt: 0@0 heading: #West afterProcessing: 'f' endsAt: -1@0 heading: #West! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:49:46'!
+test17RoverFacingWestCanMoveBackward
+
+	self assertRoverStartingAt: 0@0 heading: #West afterProcessing: 'b' endsAt: 1@0 heading: #West! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 7/1/2021 00:50:56'!
+test18RoverCanProcessMultipleCommands
+
+	self assertRoverStartingAt: 0@0 heading: #North afterProcessing: 'ff' endsAt: 0@2 heading: #North! !
+
+!TestMarsRover methodsFor: 'tdd tests' stamp: 'LL 6/30/2021 16:05:43'!
+test19RoverStopsWhenProcessingAnInvalidCommand
+
 	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingSouth new. 
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
 	
-	marsRover processCommands: 'l'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingEast).
-	
+	self should: [ marsRover processCommands: 'fxf' ] 
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anException |
+			self assert: anException messageText equals: marsRover invalidCommandErrorMessage.
+			self assert: (marsRover isAt: 0@1 heading: #North).
+		].
 	
 	! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:39:28'!
-eliminadoPorRepeticiontest05
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingSouth new. 
-	
-	marsRover processCommands: 'r'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading:  MarsRoverHeadingWest).
-	
-	
-	! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:39:35'!
-eliminadoPorRepeticiontest06
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingEast new.
-	
-	marsRover processCommands: 'l'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
+!TestMarsRover methodsFor: 'assertions' stamp: 'LL 7/1/2021 00:42:36'!
+assertRoverStartingAt: aPosition heading: aCardinalPoint afterProcessing: aStringOfCommands endsAt: aFinalPosition heading: aFinalCardinalPoint
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:39:42'!
-eliminadoPorRepeticiontest07
-	
 	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingEast new.
+	marsRover := MarsRover startingAt: aPosition heading: aCardinalPoint.
 	
-	marsRover processCommands: 'r'.
+	marsRover processCommands: aStringOfCommands.
 	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingSouth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:39:57'!
-eliminadoPorRepeticiontest08
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingWest new.
-	
-	marsRover processCommands: 'l'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingSouth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:40:08'!
-eliminadoPorRepeticiontest09
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingWest new.
-	
-	marsRover processCommands: 'r'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:40:47'!
-eliminadoPorRepeticiontest11
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@1 pointing: MarsRoverHeadingNorth new.
-	
-	marsRover processCommands: 'f'.
-	
-	self assert: (marsRover isAtCoordinates: 0@2 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:41:35'!
-eliminadoPorRepeticiontest13
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingSouth new.
-	
-	marsRover processCommands: 'f'.
-	
-	self assert: (marsRover isAtCoordinates: 0@-1 andHeading: MarsRoverHeadingSouth ).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:41:43'!
-eliminadoPorRepeticiontest14
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingSouth new.
-	
-	marsRover processCommands: 'b'.
-	
-	self assert: (marsRover isAtCoordinates: 0@1 andHeading: MarsRoverHeadingSouth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:31:17'!
-test01NoMovementWithEmptyCommandString 
-	
-	| marsRover |
-	
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new. 
-	
-	marsRover processCommands: ''.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:31:53'!
-test02MarsRoverRotatesLeftCorrectly 
-	
-	| marsRover |
-	
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new. 
-	
-	marsRover processCommands: 'l'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingWest).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:32:34'!
-test03MarsRoverRotatesRightCorrectly 
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new. 
-	
-	marsRover processCommands: 'r'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading: MarsRoverHeadingEast).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:40:28'!
-test04MarsRoverMovesForwardCorrectly
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new.
-	
-	marsRover processCommands: 'f'.
-	
-	self assert: (marsRover isAtCoordinates: 0@1 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:41:15'!
-test05MarsRoverMovesBackwardsCorrectly
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new.
-	
-	marsRover processCommands: 'b'.
-	
-	self assert: (marsRover isAtCoordinates: 0@-1 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:42:38'!
-test06MarsRoverMovesCorrectlyWithMultipleCommandString
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new.
-	
-	marsRover processCommands: 'frfrflb'.
-	
-	self assert: (marsRover isAtCoordinates: 0@0 andHeading:  MarsRoverHeadingEast).
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:43:15'!
-test07WrongCommandRaisesAnError
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new. 
-	
-	self
-		should: [ marsRover processCommands: 'x'. ]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [ :anError |
-			self assert: anError messageText = MarsRoverCommand unknownCommandError ].
-	
-	
-	! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:43:59'!
-test08MarsRoverStopsMovingAfterWrongCommand
-	
-	| marsRover |
-	marsRover := MarsRover atCoordinates: 0@0 pointing: MarsRoverHeadingNorth new. 
-	
-	self
-		should: [ marsRover processCommands: 'fffxfff'. ]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [ :anError |
-			self assert: anError messageText = MarsRoverCommand unknownCommandError ].
-		
-	self assert: (marsRover isAtCoordinates: 0@3 andHeading: MarsRoverHeadingNorth).
-	
-	
-	! !
+	self assert: (marsRover isAt: aFinalPosition heading: aFinalCardinalPoint)! !
 
 
-!classDefinition: #MarsRover category: 'TDD-MarsRover'!
-Object subclass: #MarsRover
-	instanceVariableNames: 'direction position'
+!classDefinition: #TestMarsRoverTracking category: 'MarsRover-Solucion'!
+TestCase subclass: #TestMarsRoverTracking
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 21:44:20'!
-initializeAtCoordinates: aPoint andPointing: aDirection
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:16:57'!
+test01
 	
-	position := aPoint.
-	direction := aDirection.! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:38:43'!
-isAtCoordinates: aPoint andHeading: aDirection
-	
-	^aPoint = position and: [direction class = aDirection].! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-moveBackwards
-
-		position:= position - (direction increasementPositionOf: self). ! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-moveForward
-
-	position:= position + (direction increasementPositionOf: self). 
-
-	"direction class = MarsRoverHeadingNorth ifTrue:[ position := position + (0@1)].
-	
-	direction class = MarsRoverHeadingSouth ifTrue:[ position := position + (0@-1)].
-	
-	direction class = MarsRoverHeadingEast ifTrue:[ position := position + (1@0)].
-	
-	direction class = MarsRoverHeadingWest ifTrue:[ position := position + (-1@0)]."
-	
-		"Norte moverseadelante: marsRover
-			
-			marsRover nuevaposicionhaciaadelanteapuntadoalnorte
-						(0@1)
-						
-				position := position + "
-				
-			
+	| marsRover positionLogger |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
 		
-		! !
+	positionLogger := MarsRoverLogger of: marsRover tracking: #Position.
+		
+	self assert: (OrderedCollection new) equals: positionLogger display.   ! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:22:05'!
-movementOnEastDirection
- 
-	^(1@0).! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:22:22'!
-movementOnNorthDirection
- 
-	^(0@1).! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:22:29'!
-movementOnSouthDirection
- 
-	^(0@-1).! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:22:14'!
-movementOnWestDirection
- 
-	^(-1@0).! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:08:34'!
-processCommands: aString
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:18:44'!
+test02
 	
-	 | commands | 
+	| marsRover positionLogger |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	positionLogger := MarsRoverLogger of: marsRover tracking: #Position.
 	
-	commands := aString asArray.
+	marsRover processCommands: 'f'.
+		
+	self assert: (OrderedCollection with: '0@1') equals: positionLogger display.   ! !
+
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:26:12'!
+test03
 	
-	commands do: [:aCommand |  (MarsRoverCommand with: aCommand) executeOn: self].
+	| marsRover positionLogger |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	positionLogger := MarsRoverLogger of: marsRover tracking: #Position.
+	
+	marsRover processCommands: 'ff'.
+		
+	self assert: (OrderedCollection with: '0@1' with: '0@2') equals: positionLogger display.   ! !
 
-				! !
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:27:55'!
+test04
+	
+	| marsRover headingDirectionLogger |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	headingDirectionLogger := MarsRoverLogger of: marsRover tracking: #HeadingDirection.
+	
+	marsRover processCommands: 'r'.
+		
+	self assert: (OrderedCollection with: 'East') equals: headingDirectionLogger display.   ! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:57:24'!
-rotateLeft
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:37:29'!
+test05
+	
+	| marsRover mixedLogger |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	mixedLogger := MarsRoverLogger of: marsRover tracking: #Mixed.
+	
+	marsRover processCommands: 'f'.
+		
+	self assert: (OrderedCollection with: '0@1 North') equals: mixedLogger display.   ! !
 
-	direction := direction directionAfterLeftRotation! !
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:44:29'!
+test06
+	
+	| marsRover positionWindow |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	positionWindow := MarsRoverWindow of: marsRover tracking: #Position.
+	
+	marsRover processCommands: 'f'.
+		
+	self assert: '0@1' equals: positionWindow display.  ! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:57:35'!
-rotateRight
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:52:27'!
+test07
+	
+	| marsRover positionWindow |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	positionWindow := MarsRoverWindow of: marsRover tracking: #Position.
+	
+	marsRover processCommands: 'ff'.
+		
+	self assert: '0@2' equals: positionWindow display.  ! !
 
-	direction := direction directionAfterRightRotation! !
+!TestMarsRoverTracking methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:58:23'!
+test08
+	
+	| marsRover mixedLogger mixedWindow |
+	marsRover := MarsRover startingAt: 0@0 heading: #North.
+		
+	mixedWindow := MarsRoverWindow of: marsRover tracking: #Mixed.
+	
+	mixedLogger := MarsRoverLogger of: marsRover tracking: #Mixed. 
+	
+	marsRover processCommands: 'fr'.
+		
+	self assert: '0@1 East' equals: mixedWindow display. 
+	
+	self assert: (OrderedCollection with: '0@1 North' with: '0@1 East') equals: mixedLogger display. 
+	 ! !
+
+
+!classDefinition: #MarsRover category: 'MarsRover-Solucion'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position head logger window'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-Solucion'!
+
+!MarsRover methodsFor: 'initialization' stamp: 'LL 6/30/2021 19:47:14'!
+initializeStartingAt: aPosition heading: aCardinalPoint 
+	
+	position := aPosition.
+	head := MarsRoverHead of: self facing: aCardinalPoint.
+	! !
+
+
+!MarsRover methodsFor: 'process commands' stamp: 'SIA 7/18/2021 19:53:58'!
+processCommands: aStringWithCommands
+
+	aStringWithCommands do: [ :aCommand | 
+		self assertCommandIsValid: aCommand.
+		self processCommand: aCommand.
+		logger ifNotNil: [
+			(logger type = #Position) ifTrue: [logger add: position asString].
+			(logger type = #HeadingDirection) ifTrue: [logger add: head asString].
+			(logger type = #Mixed) ifTrue: [logger add: (position asString) ,' ', (head asString)].
+		].
+		window ifNotNil: [
+			(window type = #Position) ifTrue: [window update: position asString].
+			(window type = #HeadingDirection) ifTrue: [window update: head asString].
+			(window type = #Mixed) ifTrue: [window update: (position asString) ,' ', (head asString)].].		
+	].
+	
+! !
+
+
+!MarsRover methodsFor: 'testing' stamp: 'LL 6/30/2021 19:47:14'!
+isAt: aPosition heading: aCardinalPoint
+
+	^ position = aPosition and: [ head isHeading: aCardinalPoint ]! !
+
+
+!MarsRover methodsFor: 'private - process commands' stamp: 'LL 6/30/2021 15:54:11'!
+assertCommandIsValid: aCommand
+
+	^ (self isInvalidCommand: aCommand) ifTrue: [ self error: self invalidCommandErrorMessage ]! !
+
+!MarsRover methodsFor: 'private - process commands' stamp: 'LL 6/30/2021 15:48:06'!
+invalidCommandErrorMessage
+
+	^'Invalid command'! !
+
+!MarsRover methodsFor: 'private - process commands' stamp: 'LL 6/30/2021 19:48:47'!
+processCommand: aCommand
+
+	(self isForwardCommand: aCommand) ifTrue: [ ^ head movingForward ].
+	(self isBackwardCommand: aCommand) ifTrue: [ ^ head movingBackwards ].
+	(self isRotateRightCommand: aCommand) ifTrue: [ ^ head rotateRight ].
+	(self isRotateLeftCommand: aCommand) ifTrue: [ ^ head rotateLeft ].
+! !
+
+
+!MarsRover methodsFor: 'private - commands' stamp: 'LL 6/30/2021 15:26:42'!
+isBackwardCommand: command
+
+	^ command = $b! !
+
+!MarsRover methodsFor: 'private - commands' stamp: 'LL 6/30/2021 15:26:27'!
+isForwardCommand: command
+
+	^ command = $f! !
+
+!MarsRover methodsFor: 'private - commands' stamp: 'LL 6/30/2021 15:51:21'!
+isInvalidCommand: aCommand
+	^(self isForwardCommand: aCommand) not and: 
+		[ (self isBackwardCommand: aCommand) not and: 
+			[ (self isRotateRightCommand: aCommand) not and: 
+				[ (self isRotateLeftCommand: aCommand) not ] ] ]! !
+
+!MarsRover methodsFor: 'private - commands' stamp: 'LL 6/30/2021 15:50:53'!
+isRotateLeftCommand: command
+
+	^ command = $l! !
+
+!MarsRover methodsFor: 'private - commands' stamp: 'LL 6/30/2021 15:27:33'!
+isRotateRightCommand: command
+
+	^ command = $r! !
+
+
+!MarsRover methodsFor: 'dd - moving' stamp: 'LL 6/30/2021 17:08:33'!
+moveDown
+
+	position := position + (0@-1)! !
+
+!MarsRover methodsFor: 'dd - moving' stamp: 'LL 6/30/2021 17:08:16'!
+moveLeft
+
+	position := position + (-1@0)! !
+
+!MarsRover methodsFor: 'dd - moving' stamp: 'LL 6/30/2021 17:09:03'!
+moveRight
+
+	position := position + (1@0)! !
+
+!MarsRover methodsFor: 'dd - moving' stamp: 'LL 6/30/2021 17:08:48'!
+moveUp
+
+	position := position + (0@1)! !
+
+
+!MarsRover methodsFor: 'dd - heading' stamp: 'LL 6/30/2021 19:47:14'!
+headEast
+
+	head := MarsRoverHeadFacingEast of: self.! !
+
+!MarsRover methodsFor: 'dd - heading' stamp: 'LL 6/30/2021 19:47:14'!
+headNorth
+
+	head := MarsRoverHeadFacingNorth of: self.! !
+
+!MarsRover methodsFor: 'dd - heading' stamp: 'LL 6/30/2021 19:47:14'!
+headSouth
+
+	head := MarsRoverHeadFacingSouth of: self.! !
+
+!MarsRover methodsFor: 'dd - heading' stamp: 'LL 6/30/2021 19:47:14'!
+headWest
+
+	head := MarsRoverHeadFacingWest of: self.! !
+
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:20:58'!
+addLogger: aLogger
+	
+	logger := aLogger! !
+
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:47:11'!
+addWindow: aWindow
+	
+	window := aWindow! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRover class' category: 'TDD-MarsRover'!
+!classDefinition: 'MarsRover class' category: 'MarsRover-Solucion'!
 MarsRover class
 	instanceVariableNames: ''!
 
-!MarsRover class methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 21:44:35'!
-atCoordinates: aPoint pointing: aDirection
-
-	^self new initializeAtCoordinates: aPoint andPointing: aDirection.! !
+!MarsRover class methodsFor: 'instance creation' stamp: 'LL 6/30/2021 13:30:13'!
+startingAt: aPoint heading: aCardinalPoint 
+	
+	^self new initializeStartingAt: aPoint heading: aCardinalPoint ! !
 
 
-!classDefinition: #MarsRoverCommand category: 'TDD-MarsRover'!
-Object subclass: #MarsRoverCommand
-	instanceVariableNames: 'direction position'
+!classDefinition: #MarsRoverHead category: 'MarsRover-Solucion'!
+Object subclass: #MarsRoverHead
+	instanceVariableNames: 'marsRover'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverCommand methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:06:03'!
-executeOn: aMarsRover 
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:31:23'!
+asString
 	
 	self subclassResponsibility.! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 16:17:57'!
+initializeOf: aMarsRover
+
+	marsRover := aMarsRover! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:46:16'!
+isHeading: aCardinalPoint
+
+	^self class whenFacing: aCardinalPoint
+
+	! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:36'!
+movingBackwards
+
+	self subclassResponsibility! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:47'!
+movingForward
+
+	self subclassResponsibility! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 16:36:46'!
+rotateLeft
+
+	self subclassResponsibility! !
+
+!MarsRoverHead methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 16:36:43'!
+rotateRight
+
+	self subclassResponsibility! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'MarsRoverCommand class' category: 'TDD-MarsRover'!
-MarsRoverCommand class
+!classDefinition: 'MarsRoverHead class' category: 'MarsRover-Solucion'!
+MarsRoverHead class
 	instanceVariableNames: ''!
 
-!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:05:37'!
-unknownCommandError
+!MarsRoverHead class methodsFor: 'testing' stamp: 'LL 6/30/2021 19:46:16'!
+whenFacing: aCardinalPoint
 
-	^'Unkown command'! !
-
-!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:04:30'!
-with: aCharacter
-
-	aCharacter = $f ifTrue: [^Forward new].
-	aCharacter = $b ifTrue: [^Backward new].
-	aCharacter = $r ifTrue: [^Right new].
-	aCharacter = $l ifTrue: [^Left new].
-	^self error: self unknownCommandError.! !
-
-
-!classDefinition: #Backward category: 'TDD-MarsRover'!
-MarsRoverCommand subclass: #Backward
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
-
-!Backward methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:06:24'!
-executeOn: aMarsRover 
-	
-	aMarsRover moveBackwards. ! !
-
-
-!classDefinition: #Forward category: 'TDD-MarsRover'!
-MarsRoverCommand subclass: #Forward
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
-
-!Forward methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:06:36'!
-executeOn: aMarsRover 
-	
-	aMarsRover moveForward. ! !
-
-
-!classDefinition: #Left category: 'TDD-MarsRover'!
-MarsRoverCommand subclass: #Left
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
-
-!Left methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:06:47'!
-executeOn: aMarsRover 
-	
-	aMarsRover rotateLeft. ! !
-
-
-!classDefinition: #Right category: 'TDD-MarsRover'!
-MarsRoverCommand subclass: #Right
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
-
-!Right methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:06:59'!
-executeOn: aMarsRover 
-	
-	aMarsRover rotateRight. ! !
-
-
-!classDefinition: #MarsRoverDirection category: 'TDD-MarsRover'!
-Object subclass: #MarsRoverDirection
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
-
-!MarsRoverDirection methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:49:34'!
-directionAfterLeftRotation
-	
 	self subclassResponsibility.! !
 
-!MarsRoverDirection methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:49:40'!
-directionAfterRightRotation
-	
-	self subclassResponsibility.! !
 
-!MarsRoverDirection methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-increasementPositionOf: aMarsRover
+!MarsRoverHead class methodsFor: 'instance creation' stamp: 'LL 6/30/2021 16:16:27'!
+of: aMarsRover
+
+	^self new initializeOf: aMarsRover! !
+
+!MarsRoverHead class methodsFor: 'instance creation' stamp: 'LL 6/30/2021 19:46:37'!
+of: aMarsRover facing: aCardinalPoint
 	
-	self subclassResponsibility.! !
+	| headingSubclass |
+	headingSubclass := self subclasses detect: [ :aHeadingSubclass | aHeadingSubclass whenFacing: aCardinalPoint ].
+	
+	^headingSubclass of: aMarsRover.! !
 
 
-!classDefinition: #MarsRoverHeadingEast category: 'TDD-MarsRover'!
-MarsRoverDirection subclass: #MarsRoverHeadingEast
+!classDefinition: #MarsRoverHeadFacingEast category: 'MarsRover-Solucion'!
+MarsRoverHead subclass: #MarsRoverHeadFacingEast
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:51:16'!
-directionAfterLeftRotation
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:31:42'!
+asString
 	
-	^MarsRoverHeadingNorth new.! !
+	^'East'! !
 
-!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:51:39'!
-directionAfterRightRotation
-	
-	^MarsRoverHeadingSouth new.! !
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:36'!
+movingBackwards
 
-!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-increasementPositionOf: aMarsRover
-	
-	^aMarsRover movementOnEastDirection.! !
+	^marsRover moveLeft.
+
+	! !
+
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:47'!
+movingForward
+
+	^marsRover moveRight.
+
+	! !
+
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:06:22'!
+rotateLeft
+
+	^marsRover headNorth.
+
+	! !
+
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:10:14'!
+rotateRight
+
+	^marsRover headSouth.
+
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverHeadFacingEast class' category: 'MarsRover-Solucion'!
+MarsRoverHeadFacingEast class
+	instanceVariableNames: ''!
+
+!MarsRoverHeadFacingEast class methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:46:16'!
+whenFacing: aCardinalPoint
+
+	^aCardinalPoint = #East! !
 
 
-!classDefinition: #MarsRoverHeadingNorth category: 'TDD-MarsRover'!
-MarsRoverDirection subclass: #MarsRoverHeadingNorth
+!classDefinition: #MarsRoverHeadFacingNorth category: 'MarsRover-Solucion'!
+MarsRoverHead subclass: #MarsRoverHeadFacingNorth
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:52:26'!
-directionAfterLeftRotation
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:33:39'!
+asString
 	
-	^MarsRoverHeadingWest new.! !
+	^'North'! !
 
-!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:52:15'!
-directionAfterRightRotation
-	
-	^MarsRoverHeadingEast new.! !
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:36'!
+movingBackwards
 
-!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-increasementPositionOf: aMarsRover
-	
-	^aMarsRover movementOnNorthDirection.! !
+	^marsRover moveDown.! !
+
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:47'!
+movingForward
+
+	^marsRover moveUp.! !
+
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:06:33'!
+rotateLeft
+
+	^marsRover headWest.! !
+
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:10:58'!
+rotateRight
+
+	^marsRover headEast.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverHeadFacingNorth class' category: 'MarsRover-Solucion'!
+MarsRoverHeadFacingNorth class
+	instanceVariableNames: ''!
+
+!MarsRoverHeadFacingNorth class methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:46:16'!
+whenFacing: aCardinalPoint
+
+	^aCardinalPoint = #North! !
 
 
-!classDefinition: #MarsRoverHeadingSouth category: 'TDD-MarsRover'!
-MarsRoverDirection subclass: #MarsRoverHeadingSouth
+!classDefinition: #MarsRoverHeadFacingSouth category: 'MarsRover-Solucion'!
+MarsRoverHead subclass: #MarsRoverHeadFacingSouth
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:52:46'!
-directionAfterLeftRotation
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:33:46'!
+asString
 	
-	^MarsRoverHeadingEast new.! !
+	^'South'! !
 
-!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:52:37'!
-directionAfterRightRotation
-	
-	^MarsRoverHeadingWest new.! !
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:36'!
+movingBackwards
 
-!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-increasementPositionOf: aMarsRover
-	
-	^aMarsRover movementOnSouthDirection.! !
+	^marsRover moveUp.! !
+
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:47'!
+movingForward
+
+	^marsRover moveDown! !
+
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:06:43'!
+rotateLeft
+
+	^marsRover headEast.! !
+
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:12:30'!
+rotateRight
+
+	^marsRover headWest.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverHeadFacingSouth class' category: 'MarsRover-Solucion'!
+MarsRoverHeadFacingSouth class
+	instanceVariableNames: ''!
+
+!MarsRoverHeadFacingSouth class methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:46:16'!
+whenFacing: aCardinalPoint
+
+	^aCardinalPoint = #South! !
 
 
-!classDefinition: #MarsRoverHeadingWest category: 'TDD-MarsRover'!
-MarsRoverDirection subclass: #MarsRoverHeadingWest
+!classDefinition: #MarsRoverHeadFacingWest category: 'MarsRover-Solucion'!
+MarsRoverHead subclass: #MarsRoverHeadFacingWest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TDD-MarsRover'!
+	category: 'MarsRover-Solucion'!
 
-!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:51:51'!
-directionAfterLeftRotation
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:33:53'!
+asString
 	
-	^MarsRoverHeadingSouth new.! !
+	^'West'! !
 
-!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 22:51:59'!
-directionAfterRightRotation
-	
-	^MarsRoverHeadingNorth new.! !
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:36'!
+movingBackwards
 
-!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'SIA 6/30/2021 23:28:45'!
-increasementPositionOf: aMarsRover
+	^marsRover moveRight.! !
+
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:48:47'!
+movingForward
+
+	^marsRover moveLeft.! !
+
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:06:52'!
+rotateLeft
+
+	^marsRover headSouth.! !
+
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 17:12:44'!
+rotateRight
+
+	^marsRover headNorth.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverHeadFacingWest class' category: 'MarsRover-Solucion'!
+MarsRoverHeadFacingWest class
+	instanceVariableNames: ''!
+
+!MarsRoverHeadFacingWest class methodsFor: 'as yet unclassified' stamp: 'LL 6/30/2021 19:46:16'!
+whenFacing: aCardinalPoint
+
+	^aCardinalPoint = #West! !
+
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-Solucion'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'marsRover typeOfLogger type log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-Solucion'!
+
+!MarsRoverLogger methodsFor: 'initialization' stamp: 'SIA 7/18/2021 19:24:57'!
+initializeWith: aMarsRover tracking: aTypeOfLogger 
 	
-	^aMarsRover movementOnWestDirection.! !
+	marsRover := aMarsRover.
+	type := aTypeOfLogger.
+	log := OrderedCollection new.
+	
+	marsRover addLogger: self.! !
+
+
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:25:38'!
+add: aLogLine
+
+	^log add: aLogLine.! !
+
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:19:43'!
+display
+	^log! !
+
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:34:24'!
+type
+	^type! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverLogger class' category: 'MarsRover-Solucion'!
+MarsRoverLogger class
+	instanceVariableNames: ''!
+
+!MarsRoverLogger class methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:12:19'!
+of: aMarsRover tracking: aTypeOfLogger
+	^self new initializeWith: aMarsRover tracking: aTypeOfLogger.! !
+
+
+!classDefinition: #MarsRoverWindow category: 'MarsRover-Solucion'!
+Object subclass: #MarsRoverWindow
+	instanceVariableNames: 'marsRover type displayableWindow'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-Solucion'!
+
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:55:23'!
+display
+	
+	^displayableWindow ! !
+
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:49:45'!
+initializeWith: aMarsRover tracking: aTypeOfWindow
+	
+	marsRover := aMarsRover.
+	type := aTypeOfWindow. 
+	aMarsRover addWindow: self.! !
+
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:55:50'!
+type
+	
+	^type ! !
+
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:55:10'!
+update: aWindowLine
+	
+	^displayableWindow:= aWindowLine.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverWindow class' category: 'MarsRover-Solucion'!
+MarsRoverWindow class
+	instanceVariableNames: ''!
+
+!MarsRoverWindow class methodsFor: 'as yet unclassified' stamp: 'SIA 7/18/2021 19:45:26'!
+of: aMarsRover tracking: aTypeOfWindow
+	
+	^self new initializeWith: aMarsRover tracking: aTypeOfWindow.! !
