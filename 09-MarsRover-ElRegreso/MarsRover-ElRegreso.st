@@ -281,18 +281,12 @@ addPositionObserver: aPositionObserver
 	position attachObserver: aPositionObserver.! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'SIA 7/21/2021 21:14:08'!
+!MarsRover methodsFor: 'initialization' stamp: 'SIA 7/22/2021 18:10:22'!
 initializeStartingAt: aPosition heading: aCardinalPoint 
-	
-	"position := aPosition.
-	head := MarsRoverHead of: self facing: aCardinalPoint."
 	
 	position := MarsRoverCollaboratorProxy with: aPosition.
 	
-	head := MarsRoverCollaboratorProxy with: (MarsRoverHead of: self facing: aCardinalPoint).
-	
-	"headingObservers := OrderedCollection new.
-	positionObservers := OrderedCollection new."! !
+	head := MarsRoverCollaboratorProxy with: (MarsRoverHead of: self facing: aCardinalPoint).! !
 
 
 !MarsRover methodsFor: 'process commands' stamp: 'MS 7/19/2021 21:36:52'!
@@ -532,10 +526,10 @@ rotateRight
 
 	! !
 
-!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 14:28:54'!
+!MarsRoverHeadFacingEast methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 17:50:08'!
 updating: anObserver
 	
-	anObserver updatingMarsRoverHeadFacingEast.! !
+	^anObserver updatingMarsRoverHeadFacingEast.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -576,10 +570,10 @@ rotateRight
 
 	^marsRover headEast.! !
 
-!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 14:29:07'!
+!MarsRoverHeadFacingNorth methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 17:50:13'!
 updating: anObserver
 	
-	anObserver updatingMarsRoverHeadFacingNorth.! !
+	^anObserver updatingMarsRoverHeadFacingNorth.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -620,10 +614,10 @@ rotateRight
 
 	^marsRover headWest.! !
 
-!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 14:29:16'!
+!MarsRoverHeadFacingSouth methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 17:50:17'!
 updating: anObserver
 	
-	anObserver updatingMarsRoverHeadFacingSouth.! !
+	^anObserver updatingMarsRoverHeadFacingSouth.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -664,10 +658,10 @@ rotateRight
 
 	^marsRover headNorth.! !
 
-!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 14:29:26'!
+!MarsRoverHeadFacingWest methodsFor: 'as yet unclassified' stamp: 'SIA 7/22/2021 17:50:21'!
 updating: anObserver
 	
-	anObserver updatingMarsRoverHeadFacingWest.! !
+	^anObserver updatingMarsRoverHeadFacingWest.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -712,21 +706,6 @@ initialize
 	log := OrderedCollection new.! !
 
 
-!MarsRoverLogger methodsFor: 'private - update' stamp: 'MS 7/21/2021 16:14:57'!
-headChangedTo: aHead
-	
-	(aHead isKindOf: MarsRoverHeadFacingEast)	 ifTrue: [log add: 'East'].
-	(aHead isKindOf: MarsRoverHeadFacingWest)	 ifTrue: [log add: 'West'].
-	(aHead isKindOf: MarsRoverHeadFacingNorth)	 ifTrue: [log add: 'North'].
-	(aHead isKindOf: MarsRoverHeadFacingSouth)	 ifTrue: [log add: 'South'].
-	! !
-
-!MarsRoverLogger methodsFor: 'private - update' stamp: 'MS 7/21/2021 16:15:50'!
-positionChangedTo: aPosition
-	
-	log add: aPosition asString.
-	! !
-
 !MarsRoverLogger methodsFor: 'private - update' stamp: 'SIA 7/22/2021 14:30:50'!
 updatingMarsRoverHeadFacingEast
 	
@@ -747,20 +726,21 @@ updatingMarsRoverHeadFacingWest
 	
 	^'West'! !
 
+!MarsRoverLogger methodsFor: 'private - update' stamp: 'SIA 7/22/2021 18:04:33'!
+updatingPosition: aPosition
+	
+	^aPosition asString.! !
+
 
 !MarsRoverLogger methodsFor: 'main protocol' stamp: 'MS 7/19/2021 21:24:50'!
 display
 
 	^log! !
 
-!MarsRoverLogger methodsFor: 'main protocol' stamp: 'SIA 7/22/2021 15:08:23'!
+!MarsRoverLogger methodsFor: 'main protocol' stamp: 'SIA 7/22/2021 17:57:21'!
 update: aValue
 	
-	"log add: (aValue updating: self)."
-	
-	(aValue isKindOf: MarsRoverHead) ifTrue: [ self headChangedTo: aValue]
-	
-	ifFalse: [self positionChangedTo: aValue].	! !
+	log add: (aValue updating: self).! !
 
 
 !classDefinition: #MarsRoverStatusWindow category: 'MarsRover-Solucion'!
@@ -775,28 +755,36 @@ display
 	
 	^displayableWindow! !
 
-!MarsRoverStatusWindow methodsFor: 'main protocol' stamp: 'SIA 7/22/2021 15:08:39'!
+!MarsRoverStatusWindow methodsFor: 'main protocol' stamp: 'SIA 7/22/2021 17:58:04'!
 update: aValue
 	
-	"displayableWindow := (aValue updating: self)."
-	(aValue isKindOf: MarsRoverHead) ifTrue: [ self headChangedTo: aValue]
-	ifFalse: [self positionChangedTo: aValue].	! !
+	displayableWindow := (aValue updating: self).! !
 
 
-!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'MS 7/21/2021 16:16:35'!
-headChangedTo: aHead
-		
-	(aHead isKindOf: MarsRoverHeadFacingEast)	 ifTrue: [displayableWindow := 'East'].
-	(aHead isKindOf: MarsRoverHeadFacingWest)	 ifTrue: [displayableWindow := 'West'].
-	(aHead isKindOf: MarsRoverHeadFacingNorth)	 ifTrue: [displayableWindow := 'North'].
-	(aHead isKindOf: MarsRoverHeadFacingSouth)	 ifTrue: [displayableWindow := 'South'].
-	! !
-
-!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'MS 7/21/2021 16:16:56'!
-positionChangedTo: aPosition
+!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'SIA 7/22/2021 17:58:43'!
+updatingMarsRoverHeadFacingEast
 	
-	displayableWindow := aPosition asString.
-	! !
+	^'East'! !
+
+!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'SIA 7/22/2021 17:58:51'!
+updatingMarsRoverHeadFacingNorth
+	
+	^'North'! !
+
+!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'SIA 7/22/2021 17:59:15'!
+updatingMarsRoverHeadFacingSouth
+	
+	^'South'! !
+
+!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'SIA 7/22/2021 17:59:28'!
+updatingMarsRoverHeadFacingWest
+	
+	^'West'! !
+
+!MarsRoverStatusWindow methodsFor: 'private - update' stamp: 'SIA 7/22/2021 18:04:39'!
+updatingPosition: aPosition
+	
+	^aPosition asString.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -829,10 +817,10 @@ attachObserver: anObserver
 	
 	observers add: anObserver.! !
 
-!MarsRoverCollaboratorProxy methodsFor: 'observers' stamp: 'SIA 7/21/2021 21:05:58'!
+!MarsRoverCollaboratorProxy methodsFor: 'observers' stamp: 'SIA 7/22/2021 17:56:03'!
 notify
 	
-	observers do: [:anObserver | anObserver  update: value].! !
+	observers do: [:anObserver | anObserver  update: self].! !
 
 
 !MarsRoverCollaboratorProxy methodsFor: 'value' stamp: 'SIA 7/21/2021 20:44:14'!
@@ -845,6 +833,14 @@ setValue: aNewValue
 	
 	value := aNewValue.
 	self notify.! !
+
+!MarsRoverCollaboratorProxy methodsFor: 'value' stamp: 'SIA 7/22/2021 18:12:24'!
+updating: anObserver
+	
+	(value isKindOf: MarsRoverHead) ifTrue: [^ value updating: anObserver].
+	^anObserver updatingPosition: value.
+	
+	"No logramos encontrar la abstracción para sacar estos if"! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
